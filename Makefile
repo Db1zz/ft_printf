@@ -1,36 +1,35 @@
-# Project compiler settings
-
-# GCC is used for finding memory leaks
-# CC = gcc
-# CFLAGS = -fsanitize=address
-
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-# Project/Binary Name
-NAME = libft
+NAME = libftprintf.a
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-# Project Files
-SRCS = $(wildcard ft_*.c)
+SRCS = $(wildcard ./src/ft_*.c)
 OBJS = $(SRCS:.c=.o)
 
-# Compile Library
-all: $(NAME) 
+all: $(LIBFT) $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME).a $^
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(OBJS) $(LIBFT)
+	@mkdir -p temp_libft_objs
+	@cd temp_libft_objs && ar x ../$(LIBFT)
+	ar rcs $(NAME) $(OBJS) temp_libft_objs/*.o
+	@rm -rf temp_libft_objs
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Cleaning Commands
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -f $(NAME).a a.out
+	rm -f $(NAME) a.out
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
-re:	fclean all
+re: fclean all
 
-# Exclude these commands from execution
 .PHONY: all clean fclean re
