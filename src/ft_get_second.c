@@ -6,13 +6,12 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:06:27 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/22 13:19:10 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:29:39 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
-// 00000000123000000000
-// [padding][modifier][padding][precision][str][padding]
+
 disp_func *ft_get_pattern(s_format *f)
 {
 	disp_func* p;

@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:18:28 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/21 20:05:08 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:12:36 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	ft_get_special_str(s_format *f)
 		f->special_str[0] = '+';
 	else if (ft_check_bit(f->flags, SPACE_FLAG) && f->special_str[0] != '-')
 		f->special_str[0] = ' ';
-	if (ft_check_bit(f->flags, HASH_FLAG) && (f->specifier == 'x' 
-										  || f->specifier == 'X'))
+	if (ft_check_bit(f->flags, HASH_FLAG) && (f->specifier == 'x' || f->specifier == 'X') && f->output_str[0] != '0')
 	{
 		f->special_str[0] = '0';
 		f->special_str[1] = f->specifier;
@@ -55,15 +54,15 @@ void	ft_get_output_str(va_list *data, s_format *f)
 	else if (f->specifier == 'c')
 		f->output_str[0] = (char)va_arg(*data, int);
 	else if (f->specifier == 'p')
-		ft_convert_to_address_str(f, va_arg(*data, u_int64_t));
+		ft_convert_to_address_str(f, va_arg(*data, uint64_t));
 	else if (f->specifier == 'd')
-		ft_convert_to_number_str(f, va_arg(*data, long int));
+		ft_convert_to_number_str(f, va_arg(*data, int));
 	else if (f->specifier == 'i')
-		ft_convert_to_number_str(f, va_arg(*data, long int));
+		ft_convert_to_number_str(f, va_arg(*data, int));
 	else if (f->specifier == 'u')
-		ft_convert_to_number_str(f, va_arg(*data, u_int32_t));
+		ft_convert_to_number_str(f, va_arg(*data, uint32_t));
 	else if (f->specifier == 'x' || f->specifier == 'X')
-		ft_convert_to_hex_str(f, va_arg(*data, u_int32_t));
+		ft_convert_to_hex_str(f, va_arg(*data, uint32_t));
 	else if (f->specifier == '%')
 		f->output_str[0] = '%';
 	ft_get_special_str(f);

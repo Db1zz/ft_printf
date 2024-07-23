@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = 
 
 NAME = libftprintf.a
 LIBFT_DIR = ./libft
@@ -21,6 +21,8 @@ $(NAME): $(OBJS) $(LIBFT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+bonus:
 
 clean:
 	rm -f $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:08:35 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/22 13:32:00 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:13:28 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 */
 #include "../include/ft_printf.h"
 #include "../include/ft_internal.h"
+
+#include <stdio.h>
 
 /*
 	Project functions
@@ -61,6 +63,13 @@ int	ft_printf(const char *str, ...)
 	va_end(data);
 	return (printed_c);
 }
+
+// int main(void)
+// {
+// 	int x = printf(" NULL %s NULL \n", NULL);
+// 	int y = ft_printf(" NULL %s NULL \n", NULL);
+// 	printf("x: %d\n y: %d\n", x, y);
+// };
 
 /*
 	Tests

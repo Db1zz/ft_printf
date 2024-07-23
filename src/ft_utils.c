@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:19:35 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/21 19:23:51 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:46:49 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_calc_width_precision(s_format *f)
 	int	output_size;
 
 	output_size = ft_strlen(f->output_str);
+	if (f->specifier == 'c' && f->output_str[0] == '\0')
+		output_size++; // Can we rework this ?
 	if (f->specifier == 's')
 	{
 		if (output_size >= f->precision && ft_check_bit(f->flags, DOT_FLAG))
@@ -57,13 +59,12 @@ void	ft_validate_flags(s_format *f)
 size_t	ft_get_number_size(int64_t number)
 {
 	size_t		result;
-	uint64_t	num;
+	int64_t		num;
 
 	result = 1;
+	num = number;
 	if (number < 0)
 		num = number * -1;
-	else
-		num = number;
 	while (num > 9)
 	{
 		num /= 10;
@@ -80,4 +81,19 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(result, count * size);
 	return (result);
+}
+
+int	ft_printstr(char *str)
+{
+	int	i;
+	int	c;
+	
+	i = 0;
+	c = 0;
+	while (str[i])
+	{
+		ft_putchar_fd(str[i++], 1);
+		c++;
+	}
+	return (c);
 }

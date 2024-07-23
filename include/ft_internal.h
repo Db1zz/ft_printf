@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:54:30 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/21 19:02:20 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:09:49 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdarg.h>
-#include <stdio.h> // Temporary used for tests.
+#include <stdint.h>
 
 /*
 	Preprocessor definitions
@@ -66,9 +66,9 @@ char		ft_isflag(char c);
 void		ft_calc_width_precision(s_format *f);
 void		ft_validate_flags(s_format *f);
 size_t		ft_get_number_size(int64_t number);
-void		ft_convert_to_address_str(s_format *f, u_int64_t address);
+void		ft_convert_to_address_str(s_format *f, uint64_t address);
 void		ft_convert_to_number_str(s_format *f, int64_t number);
-void		ft_convert_to_hex_str(s_format *f, u_int32_t number);
+void		ft_convert_to_hex_str(s_format *f, uint32_t number);
 void		ft_get_specifier(const char *str, s_format *f);
 void		ft_get_special_str(s_format *f);
 void		ft_get_output_str(va_list *data, s_format *f);
@@ -83,5 +83,6 @@ void		ft_calc_width_precision(s_format *f);
 void		ft_validate_flags(s_format *f);
 size_t		ft_get_number_size(int64_t number);
 disp_func 	*ft_get_pattern(s_format *f);
+int			ft_printstr(char *str);
 
 #endif // FT_INTERNAL_H

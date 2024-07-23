@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:12:19 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/21 20:04:52 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:31:49 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,17 @@ int	ft_display_precision(s_format *f)
 
 int	ft_display_str(s_format *f)
 {
-	ft_putstr_fd(f->output_str, 1);
-	return (ft_strlen(f->output_str));
+	if (f->output_str)
+	{
+		ft_putstr_fd(f->output_str, 1);
+		if (f->specifier == 'c' && f->output_str[0] == 0)
+		{
+			ft_putchar_fd('\0', 1);
+			return (1);
+		}
+		return (ft_strlen(f->output_str));
+	}
+	return (0);
 }
 
 int	ft_display_format(s_format *f)
@@ -69,15 +78,20 @@ int	ft_display_format(s_format *f)
 	int			result;
 
 	i = -1;
-	ft_calc_width_precision(f);
-	pattern = ft_get_pattern(f);
 	result = 0;
-	if (pattern)
+	if (f->output_str)
 	{
-		while (++i < PATTERN_SIZE)
-			if (pattern[i])
-				result += pattern[i](f);
-		free(pattern);
+		ft_calc_width_precision(f);
+		pattern = ft_get_pattern(f);
+		if (pattern)
+		{
+			while (++i < PATTERN_SIZE)
+				if (pattern[i])
+					result += pattern[i](f);
+			free(pattern);
+		}
 	}
+	else
+		result += ft_printstr("(null)");
 	return (result);
 }

@@ -6,36 +6,45 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:15:39 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/22 13:21:06 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:19:50 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
 
-void	ft_convert_to_address_str(s_format *f, u_int64_t address)
+void	ft_convert_to_address_str(s_format *f, uint64_t address)
 {
 	const char	*hex_digits = "0123456789abcdef";
-	int	i;
+	const char	*null = "(nil)";
+	int			i;
+	uint64_t	temp;
 
-	i = 8;
-	if (address == 0)
-		f->output_str[2] = '0';
-	else
+	i = 0;
+	temp = address;
+	if (address != 0)
 	{
+		while (temp /= 16)
+			i++;
 		while (address > 0)
 		{
 			f->output_str[i--] = hex_digits[address % 16];
 			address /= 16;
 		}
+		f->special_str[0] = '0';
+		f->special_str[1] = 'x';
 	}
-	f->special_str[0] = '0';
-	f->special_str[1] = 'x';
+	else
+		while (null[i])
+		{
+			f->special_str[i] = null[i];
+			i++;
+		}
 }
 
 void	ft_convert_to_number_str(s_format *f, int64_t number)
 {
 	int			i;
-	u_int32_t	num;
+	uint32_t	num;
 
 	i = (int)ft_get_number_size(number);
 	if (number < 0)
@@ -54,7 +63,7 @@ void	ft_convert_to_number_str(s_format *f, int64_t number)
 	}
 }
 
-void	ft_convert_to_hex_str(s_format *f, u_int32_t number)
+void	ft_convert_to_hex_str(s_format *f, uint32_t number)
 {
 	const char	*hex_digits = "0123456789abcdef";
 	int			modifier;
