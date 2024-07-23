@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 LIBFT_DIR = ./libft
