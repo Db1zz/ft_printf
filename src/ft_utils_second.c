@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_istrue.c                                        :+:      :+:    :+:   */
+/*   ft_utils_second.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/21 16:17:39 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/23 19:45:36 by gonische         ###   ########.fr       */
+/*   Created: 2024/07/23 17:53:19 by gonische          #+#    #+#             */
+/*   Updated: 2024/07/23 19:49:19 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
 
-bool	ft_isspecifier(char c)
+int	ft_get_hex_size(uint64_t hex)
 {
-	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i'
-		|| c == 'u' || c == 'x' || c == 'X' || c == '%');
-}
+	int	i;
 
-char	ft_isflag(char c)
-{
-	if (c == '-')
-		return (MINUS_FLAG);
-	else if (c == '0')
-		return (ZERO_FLAG);
-	else if (c == '.')
-		return (DOT_FLAG);
-	else if (c == '#')
-		return (HASH_FLAG);
-	else if (c == ' ')
-		return (SPACE_FLAG);
-	else if (c == '+')
-		return (PLUS_FLAG);
-	return (0);
+	i = 1;
+	while (hex / 16)
+	{
+		hex /= 16;
+		i++;
+	}
+	return (i);
 }

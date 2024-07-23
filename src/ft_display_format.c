@@ -6,13 +6,13 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:12:19 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/23 12:31:49 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:26:25 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
 
-int	ft_display_padding(s_format *f)
+int	ft_display_padding(t_format *f)
 {
 	char	pad;
 	int		counter;
@@ -28,13 +28,13 @@ int	ft_display_padding(s_format *f)
 	return (counter);
 }
 
-int	ft_display_modifier(s_format *f)
+int	ft_display_modifier(t_format *f)
 {
 	ft_putstr_fd(f->special_str, 1);
 	return (ft_strlen(f->special_str));
 }
 
-int	ft_display_precision(s_format *f)
+int	ft_display_precision(t_format *f)
 {
 	int	i;
 	int	counter;
@@ -42,21 +42,25 @@ int	ft_display_precision(s_format *f)
 	i = 0;
 	counter = 0;
 	if (f->specifier == 's')
+	{
 		while (f->output_str[i] && f->precision-- > 0)
 		{
 			ft_putchar_fd(f->output_str[i++], 1);
-			counter++;	
+			counter++;
 		}
+	}
 	else
+	{
 		while (f->precision-- > 0)
 		{
 			ft_putchar_fd('0', 1);
 			counter++;
 		}
+	}
 	return (counter);
 }
 
-int	ft_display_str(s_format *f)
+int	ft_display_str(t_format *f)
 {
 	if (f->output_str)
 	{
@@ -71,10 +75,10 @@ int	ft_display_str(s_format *f)
 	return (0);
 }
 
-int	ft_display_format(s_format *f)
+int	ft_display_format(t_format *f)
 {
 	int			i;
-	disp_func	*pattern;
+	t_disp_func	*pattern;
 	int			result;
 
 	i = -1;

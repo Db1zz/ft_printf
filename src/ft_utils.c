@@ -6,19 +6,19 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:19:35 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/23 12:46:49 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:48:27 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
 
-void	ft_calc_width_precision(s_format *f)
+void	ft_calc_width_precision(t_format *f)
 {
 	int	output_size;
 
 	output_size = ft_strlen(f->output_str);
 	if (f->specifier == 'c' && f->output_str[0] == '\0')
-		output_size++; // Can we rework this ?
+		output_size++;
 	if (f->specifier == 's')
 	{
 		if (output_size >= f->precision && ft_check_bit(f->flags, DOT_FLAG))
@@ -35,19 +35,21 @@ void	ft_calc_width_precision(s_format *f)
 	}
 }
 
-void	ft_validate_flags(s_format *f)
+void	ft_validate_flags(t_format *f)
 {
-	const char flags[][2] = {
-		{'c', MINUS_FLAG | WIDTH_FLAG},
-		{'%', MINUS_FLAG | WIDTH_FLAG},
-		{'p', MINUS_FLAG | WIDTH_FLAG},
-		{'s', MINUS_FLAG | WIDTH_FLAG | DOT_FLAG},
-		{'d', MINUS_FLAG | WIDTH_FLAG | DOT_FLAG | ZERO_FLAG | SPACE_FLAG | PLUS_FLAG},
-		{'i', MINUS_FLAG | WIDTH_FLAG | DOT_FLAG | ZERO_FLAG | SPACE_FLAG | PLUS_FLAG},
-		{'u', MINUS_FLAG | ZERO_FLAG | WIDTH_FLAG | DOT_FLAG},
-		{'x', MINUS_FLAG | ZERO_FLAG | HASH_FLAG | WIDTH_FLAG | DOT_FLAG},
-		{'X', MINUS_FLAG | ZERO_FLAG | HASH_FLAG | WIDTH_FLAG | DOT_FLAG}};
-	int	i;
+	int			i;
+	const char	flags[][2] = {
+	{'c', MINUS_FLAG | WIDTH_FLAG},
+	{'%', MINUS_FLAG | WIDTH_FLAG},
+	{'p', MINUS_FLAG | WIDTH_FLAG},
+	{'s', MINUS_FLAG | WIDTH_FLAG | DOT_FLAG},
+	{'d', MINUS_FLAG | WIDTH_FLAG | DOT_FLAG | ZERO_FLAG
+		| SPACE_FLAG | PLUS_FLAG},
+	{'i', MINUS_FLAG | WIDTH_FLAG | DOT_FLAG | ZERO_FLAG
+		| SPACE_FLAG | PLUS_FLAG},
+	{'u', MINUS_FLAG | ZERO_FLAG | WIDTH_FLAG | DOT_FLAG},
+	{'x', MINUS_FLAG | ZERO_FLAG | HASH_FLAG | WIDTH_FLAG | DOT_FLAG},
+	{'X', MINUS_FLAG | ZERO_FLAG | HASH_FLAG | WIDTH_FLAG | DOT_FLAG}};
 
 	i = 0;
 	while (flags[i] && flags[i][0] != f->specifier)
@@ -76,8 +78,9 @@ size_t	ft_get_number_size(int64_t number)
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*result;
-	
-	if (!(result = malloc(count * size)))
+
+	result = malloc(count * size);
+	if (result == NULL)
 		return (NULL);
 	ft_bzero(result, count * size);
 	return (result);
@@ -87,7 +90,7 @@ int	ft_printstr(char *str)
 {
 	int	i;
 	int	c;
-	
+
 	i = 0;
 	c = 0;
 	while (str[i])

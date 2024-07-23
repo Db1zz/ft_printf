@@ -6,25 +6,21 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:15:39 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/22 16:19:50 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:05:12 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
 
-void	ft_convert_to_address_str(s_format *f, uint64_t address)
+void	ft_convert_to_address_str(t_format *f, uint64_t address)
 {
 	const char	*hex_digits = "0123456789abcdef";
 	const char	*null = "(nil)";
 	int			i;
-	uint64_t	temp;
 
-	i = 0;
-	temp = address;
+	i = ft_get_hex_size(address) - 1;
 	if (address != 0)
 	{
-		while (temp /= 16)
-			i++;
 		while (address > 0)
 		{
 			f->output_str[i--] = hex_digits[address % 16];
@@ -34,14 +30,17 @@ void	ft_convert_to_address_str(s_format *f, uint64_t address)
 		f->special_str[1] = 'x';
 	}
 	else
+	{
+		i = 0;
 		while (null[i])
 		{
 			f->special_str[i] = null[i];
 			i++;
 		}
+	}
 }
 
-void	ft_convert_to_number_str(s_format *f, int64_t number)
+void	ft_convert_to_number_str(t_format *f, int64_t number)
 {
 	int			i;
 	uint32_t	num;
@@ -63,22 +62,20 @@ void	ft_convert_to_number_str(s_format *f, int64_t number)
 	}
 }
 
-void	ft_convert_to_hex_str(s_format *f, uint32_t number)
+void	ft_convert_to_hex_str(t_format *f, uint32_t number)
 {
 	const char	*hex_digits = "0123456789abcdef";
 	int			modifier;
 	int			i;
 	char		digit;
-	uint32_t	temp;
 
+	i = ft_get_hex_size(number) - 1;
 	modifier = 0;
 	if (f->specifier == 'X')
 		modifier = 'a' - 'A';
-	i = 0;
-	temp = number;
-	while (temp /= 16)
-		i++;
-	while (i >= 0)
+	if (number == 0)
+		f->output_str[0] = '0';
+	while (number)
 	{
 		digit = hex_digits[number % 16];
 		if (digit >= 'a')

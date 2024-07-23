@@ -6,18 +6,19 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:06:27 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/22 17:29:39 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:45:18 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_internal.h"
 
-disp_func *ft_get_pattern(s_format *f)
+t_disp_func	*ft_get_pattern(t_format *f)
 {
-	disp_func* p;
+	t_disp_func	*p;
 
-	if (!(p = (disp_func*)ft_calloc(PATTERN_SIZE, sizeof(disp_func))))
-		return NULL;
+	p = (t_disp_func *)ft_calloc(PATTERN_SIZE, sizeof(t_disp_func));
+	if (p == NULL)
+		return (NULL);
 	if (f->width > 0 && ft_check_bit(f->flags, WIDTH_FLAG))
 	{
 		if (ft_check_bit(f->flags, MINUS_FLAG))

@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:14:11 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/21 18:25:10 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:48:26 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ bool	ft_check_bit(char bit_set, char bit)
 bool	ft_check_remove_bit(char *bit_set, char bit)
 {
 	bool	result;
-	if ((result = ft_check_bit(*bit_set, bit)))
+
+	result = ft_check_bit(*bit_set, bit);
+	if (result)
 		*bit_set &= ~bit;
 	return (result);
 }

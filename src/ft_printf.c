@@ -6,7 +6,7 @@
 /*   By: gonische <gonische@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:08:35 by gonische          #+#    #+#             */
-/*   Updated: 2024/07/22 18:13:28 by gonische         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:46:04 by gonische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 int	ft_format_parser(const char *str, va_list *data, int *printed_c)
 {
 	int			result;
-	s_format	*format;
+	t_format	*format;
 
 	result = 0;
-	if ((format = ft_get_format_data(str, data)))
+	format = ft_get_format_data(str, data);
+	if (format)
 	{
 		*printed_c += ft_display_format(format);
 		result = format->size;
@@ -79,7 +80,7 @@ int	ft_printf(const char *str, ...)
 // 	int a = 42;
 //     // Basic Specifiers
 //     printf("Original: %c\n", 'A');
-// 	ft_printf("Custom:   %c\n", 'A');
+//	   ft_printf("Custom:   %c\n", 'A');
 
 //     printf("Original: %s\n", "Hello, World!");
 //     ft_printf("Custom:   %s\n", "Hello, World!");
